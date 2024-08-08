@@ -2,20 +2,34 @@ window.onload = pageReady;
 
 function pageReady() {
     //get variables
-    const card = document.getElementById("card");
-    const cardInner = document.getElementById("card-inner");
+    const card1 = document.getElementById("card1");
+    const card2 = document.getElementById("card2");
+    const card3 = document.getElementById("card3");
+    const card4 = document.getElementById("card4");
     let turned = false;
 
-    function flip() {
+    //flip function
+    function flip(entry) {
         if (!turned) {
-            cardInner.style.transform = "rotateY(180deg)";
+            entry.querySelector(".card-inner").style.transform = "rotateY(180deg)";
             turned = true;
         } else {
-            cardInner.style.transform = "none";
+            entry.querySelector(".card-inner").style.transform = "none";
             turned = false;
         }
-        
     }
 
-    card.addEventListener("click", flip);
+    //event handlers
+    card1.addEventListener("click", () => {
+        flip(card1);
+    });
+    card2.addEventListener("click", () => {
+        flip(card2);
+    });
+    card3.addEventListener("click", () => {
+        flip(card3);
+    });
+    card4.addEventListener("click", () => {
+        flip(card4);
+    });
 }
