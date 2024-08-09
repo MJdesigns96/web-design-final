@@ -2,34 +2,53 @@ window.onload = pageReady;
 
 function pageReady() {
     //get variables
-    const card1 = document.getElementById("card1");
-    const card2 = document.getElementById("card2");
-    const card3 = document.getElementById("card3");
-    const card4 = document.getElementById("card4");
-    let turned = false;
+    let arr = [];
+    let cardCount = 6;
+
+    //arr and objects
+    let objContain = {};
+    for (let i = 0; i < cardCount; i++) {
+        let phrase = `card${i+1}`;
+        arr[i] = document.getElementById(phrase);
+        
+        const temp = {
+            card: i,
+            isTurned: false,
+            matchNum: 0
+        };
+        objContain[i] = temp;
+    };
+
+    //set matchNum numbers
+    let sets = cardCount/2;
+    let carry = [0,0,1,1,2,2];
+    let shuffled = carry
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a,b) => a.sort - b.sort)
+    .map(({ value }) => value)
+    
+    for (let k = 0; k < shuffled.length; k++) {
+        objContain[k].matchNum = shuffled[k];
+    };
 
     //flip function
     function flip(entry) {
-        if (!turned) {
-            entry.querySelector(".card-inner").style.transform = "rotateY(180deg)";
-            turned = true;
+        if (entry.isTurned === false) {
+            arr[entry.card].querySelector(".card-inner").style.transform = "rotateY(180deg)";
+            entry.isTurned = true;
         } else {
-            entry.querySelector(".card-inner").style.transform = "none";
-            turned = false;
+            arr[entry.card].querySelector(".card-inner").style.transform = "none";
+            entry.isTurned = false;
         }
     }
 
+    //function to check if they got a match or not
+
     //event handlers
-    card1.addEventListener("click", () => {
-        flip(card1);
-    });
-    card2.addEventListener("click", () => {
-        flip(card2);
-    });
-    card3.addEventListener("click", () => {
-        flip(card3);
-    });
-    card4.addEventListener("click", () => {
-        flip(card4);
-    });
+    for (let j = 0; j < cardCount; j++) {
+        arr[j].querySelector(".card-back").innerHTML = `${objContain[j].matchNum}`;
+        arr[j].addEventListener("click", () => {
+            flip(objContain[j]);
+        });
+    }
 }
