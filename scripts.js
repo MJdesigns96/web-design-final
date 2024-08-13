@@ -11,19 +11,19 @@ function pageReady() {
     const scoreTally = document.getElementById("score");
     scoreTally.innerHTML = score;
 
-    //arr and objects
+    //create an array of cards based on ID and make a corresponding object for each card with info
     let objContain = {};
     for (let i = 0; i < cardCount; i++) {
         let phrase = `card${i+1}`;
         arr[i] = document.getElementById(phrase);
         
-        const temp = {
+        const obj = {
             card: i,
             isTurned: false,
             matchNum: 0,
             isMatched: false
         };
-        objContain[i] = temp;
+        objContain[i] = obj;
     };
 
     //set matchNum numbers randomly
@@ -32,7 +32,7 @@ function pageReady() {
     let shuffled = carry
     .map(value => ({ value, sort: Math.random() }))
     .sort((a,b) => a.sort - b.sort)
-    .map(({ value }) => value)
+    .map(({ value }) => value);
     
     for (let k = 0; k < shuffled.length; k++) {
         objContain[k].matchNum = shuffled[k];
@@ -61,11 +61,14 @@ function pageReady() {
                     arr[temp.card].querySelector(".card-inner").style.transform = "none";
                     entry.isTurned = false;
                     temp.isTurned = false;
+                    } else {
+                        arr[entry.card].querySelector(".card-inner").style.pointerEvents="none";
+                        arr[temp.card].querySelector(".card-inner").style.pointerEvents="none";
                     }
                 }, 1000);
-            }
-        } 
-    }
+            };
+        }; 
+    };
 
     //function to check if they got a match or not
     function checkMatch() {
@@ -79,8 +82,8 @@ function pageReady() {
             card1 = undefined;
             card2 = undefined;
             return false;
-        }
-    }
+        };
+    };
     
     //event handlers
     for (let j = 0; j < cardCount; j++) {
@@ -88,5 +91,5 @@ function pageReady() {
         arr[j].addEventListener("click", () => {
             flip(objContain[j]);
         });
-    }
+    };
 }
