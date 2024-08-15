@@ -8,9 +8,23 @@
     <title>Memory Game</title>
 </head>
 <body>
-    <h1>Memory Game</h1>
     <h2>Score: <a id="score"></a></h2>
     <!-- Make a congratulations screen when they find all the matches -->
+    <div id="opening">
+        <div class="opening-text">
+           <h1>Welcome to the Memory Game</h1>
+            <p>In this game the goal is to flip over and match 2 cards.</p>
+            <p>Please click the Start Button to begin.</p>  
+        </div>
+        <button type="button" id="startGame">Start Game!</button>
+    </div>
+    <div id="winner">
+        <div class="opening-text">
+           <h1>Congratulations you won!</h1>  
+           <h2>Play Again?</h2>
+        </div>
+        <button type="button" id="playAgain">Play Again?</button>
+    </div>
     <div class="game-container">
         <div id="card1" class="card">
             <div class="card-inner">

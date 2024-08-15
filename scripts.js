@@ -10,6 +10,10 @@ function pageReady() {
     let score = 0;
     const scoreTally = document.getElementById("score");
     scoreTally.innerHTML = score;
+    const startGame = document.getElementById("startGame");
+    const winMessage = document.getElementById("winner");
+    const playAgain = document.getElementById("playAgain");
+    let start = false;
 
     //create an array of cards based on ID and make a corresponding object for each card with info
     let objContain = {};
@@ -89,9 +93,27 @@ function pageReady() {
     for (let j = 0; j < cardCount; j++) {
         arr[j].querySelector(".card-back").innerHTML = `${objContain[j].matchNum}`;
         arr[j].addEventListener("click", () => {
-            flip(objContain[j]);
+            if (start) {
+                flip(objContain[j]);
+            }
+            if (score === 3) {
+                winMessage.style.left = "50%";
+                winMessage.style.top = "50%";
+                winMessage.style.transform = "translate(-50%, -50%)";
+                winMessage.style.transition = "transform 2s ease-in-out";
+            };
         });
     };
 
     //make a function to show congratulations screen and option to reset the game when they get all matches
+    startGame.addEventListener("click", e => {
+        let temp = document.getElementById("opening");
+        temp.style.transform = "translateX(-2000px)";
+        temp.style.transition = "transform 2s ease-in-out";
+        start = true;
+    });
+
+    playAgain.addEventListener("click", e => {
+        window.location.reload();
+    })
 }
