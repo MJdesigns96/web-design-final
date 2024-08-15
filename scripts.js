@@ -92,4 +92,6 @@ function pageReady() {
             flip(objContain[j]);
         });
     };
+
+    //make a function to show congratulations screen and option to reset the game when they get all matches
 }
