@@ -103,8 +103,16 @@ body {
 }
 
 .card-back {
-    background-color: dodgerblue;
+    background-color: #fff;
     color: white;
     transform: rotateY(180deg);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-back img {
+    width: 200px;
+    background-color: #fff;
 }

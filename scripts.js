@@ -25,13 +25,13 @@ function pageReady() {
             card: i,
             isTurned: false,
             matchNum: 0,
-            isMatched: false
+            isMatched: false,
+            img: ""
         };
         objContain[i] = obj;
     };
 
     //set matchNum numbers randomly
-    let sets = cardCount/2;
     let carry = [0,0,1,1,2,2];
     let shuffled = carry
     .map(value => ({ value, sort: Math.random() }))
@@ -40,6 +40,13 @@ function pageReady() {
     
     for (let k = 0; k < shuffled.length; k++) {
         objContain[k].matchNum = shuffled[k];
+        if (shuffled[k] === 0) {
+            objContain[k].img = "./images/bulbasaur.png";
+        } else if (shuffled[k] === 1) {
+            objContain[k].img = "./images/charmander.jpg";
+        } else {
+            objContain[k].img = "./images/squirtle.png";
+        }
     };
 
     
@@ -91,29 +98,37 @@ function pageReady() {
     
     //event handlers
     for (let j = 0; j < cardCount; j++) {
-        arr[j].querySelector(".card-back").innerHTML = `${objContain[j].matchNum}`;
+        //set images for the cards
+        let img = document.createElement("img");
+        img.src = objContain[j].img;
+        arr[j].querySelector(".card-back").appendChild(img);
+
+        //add click event handler onto each card
         arr[j].addEventListener("click", () => {
+            //only flip if the game has started
             if (start) {
                 flip(objContain[j]);
-            }
+            };
+            //if all the matches have been found translate the win message
             if (score === 3) {
-                winMessage.style.left = "50%";
-                winMessage.style.top = "50%";
-                winMessage.style.transform = "translate(-50%, -50%)";
-                winMessage.style.transition = "transform 2s ease-in-out";
+                winMessage.style.left = "100%";
+                winMessage.style.top = "100%";
+                winMessage.style.transform = "translate(-125%, -125%)";
+                winMessage.style.transition = "transform 1.5s ease-in-out";
             };
         });
     };
 
-    //make a function to show congratulations screen and option to reset the game when they get all matches
+    //have a window that appears to start the game. Once clicked move it out of the screen
     startGame.addEventListener("click", e => {
         let temp = document.getElementById("opening");
         temp.style.transform = "translateX(-2000px)";
-        temp.style.transition = "transform 2s ease-in-out";
+        temp.style.transition = "transform 1.5s ease-in-out";
         start = true;
     });
 
+    //give user option to play again
     playAgain.addEventListener("click", e => {
         window.location.reload();
-    })
+    });
 }
