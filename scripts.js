@@ -31,13 +31,14 @@ function pageReady() {
         objContain[i] = obj;
     };
 
-    //set matchNum numbers randomly
+    //set matchNum numbers randomly - Code found on stack overflow and edited
     let carry = [0,0,1,1,2,2];
     let shuffled = carry
     .map(value => ({ value, sort: Math.random() }))
     .sort((a,b) => a.sort - b.sort)
     .map(({ value }) => value);
-    
+
+    //add imgs to the card backs depending on the assigned number
     for (let k = 0; k < shuffled.length; k++) {
         objContain[k].matchNum = shuffled[k];
         if (shuffled[k] === 0) {
